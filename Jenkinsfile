@@ -7,7 +7,7 @@ pipeline {
     }
 
     stages {
-        stage('SCM Checkout') {
+        stage('Clone the git repository') {
             steps {
                 git branch: 'main', url: 'https://github.com/shrutiverma05/java-project.git'
             }
@@ -23,7 +23,6 @@ pipeline {
             steps {
                 sh """
                     docker build -t ${DOCKER_IMAGE}:${BUILD_NUMBER} .
-                    docker tag ${DOCKER_IMAGE}:${BUILD_NUMBER} ${DOCKER_IMAGE}:latest
                 """
             }
         }
@@ -38,7 +37,6 @@ pipeline {
                     sh '''
                         echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
                         docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}
-                        docker push ${DOCKER_IMAGE}:latest
                     '''
                 }
             }

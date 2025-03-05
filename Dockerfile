@@ -4,10 +4,10 @@ FROM tomcat:9.0
 # Remove default apps
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Add the built WAR file to webapps
-COPY target/*.jar /usr/local/tomcat/webapps/ROOT.jar
+# Copy the WAR file into Tomcat's webapps directory
+COPY target/*.war /usr/local/tomcat/webapps/ROOT.war
 
-# Expose port
+# Expose port 8080 (default Tomcat port)
 EXPOSE 8000
 
 # Start Tomcat

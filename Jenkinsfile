@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'shrutiv05/tomcat-image'
-        DOCKERHUB_CREDENTIALS = 'docker-hub-key'  // Replace with your Jenkins Credentials ID
+        DOCKERHUB_CREDENTIALS = 'docker-hub-key'
     }
 
     stages {
@@ -15,15 +15,16 @@ pipeline {
 
         stage('Maven Build') {
             steps {
-		sh 'mvn clean package -DskipTests'
-                sh 'mv target/*.war target/tomapp-${BUILD_TAG}.war
+                sh 'mvn clean package -DskipTests'
+                sh "mv target/*.war target/tomapp-${BUILD_TAG}.war"
             }
         }
-	stage('Deploy to Tomcat') {
+
+        stage('Deploy to Tomcat') {
             steps {
                 script {
                     echo "Deploying to Tomcat..."
-                    sh "cp target/tomapp-${BUILD_Number}.war /opt/tomcat/webapps/app.war"
+                    sh "cp target/tomapp-${BUILD_TAG}.war /opt/tomcat/webapps/app.war"
                 }
             }
         }

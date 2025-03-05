@@ -14,14 +14,32 @@
     </properties>
 
     <dependencies>
-        <!-- Add servlet API for WAR support -->
+        <!-- Servlet API for WAR support -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- Add XStream dependency to avoid old version conflicts -->
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.20</version>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Upgrade the WAR plugin to avoid xstream conflicts -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
 

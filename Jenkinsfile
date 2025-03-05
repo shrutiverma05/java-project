@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     echo "Deploying to Tomcat..."
-                    sh "cp target/tomapp-${BUILD_TAG}.war /opt/tomcat/webapps/app.war"
+                    sh "cp target/tomapp-${BUILD_TAG}.war /opt/tomcat9/webapps/tomapp.war"
                 }
             }
         }

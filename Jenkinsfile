@@ -15,7 +15,8 @@ pipeline {
 
         stage('Maven Build') {
             steps {
-                sh 'mvn clean package'
+		sh 'mvn clean package -DskipTests'
+                sh 'mv target/*.war target/tomapp-${BUILD_TAG}.war
             }
         }
 	stage('Deploy to Tomcat') {

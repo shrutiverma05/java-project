@@ -18,6 +18,14 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
+	stage('Deploy to Tomcat') {
+            steps {
+                script {
+                    echo "Deploying to Tomcat..."
+                    sh "cp target/app-${BUILD_Number}.war /opt/tomcat/webapps/app.war"
+                }
+            }
+        }
 
         stage('Docker Build') {
             steps {
